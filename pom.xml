@@ -121,7 +121,7 @@
             <version>4.3.5</version>
         </dependency>
 
-        <!-- Apache HBase Client -->
+        <!-- HBase Client -->
         <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-client</artifactId>
