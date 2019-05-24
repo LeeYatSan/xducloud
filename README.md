@@ -15,9 +15,19 @@ GET
 eid | 电子车牌 | required |
 #### 返回结果
 ``` 
-Map<String,String> 
-key:"Time","PlaceID"，"Address","Longitude","Latitude"
-
+{
+  "data": {
+      "address": "string",
+      "eid": "string",
+      "latitude": "string",
+      "longitude": "string",
+      "placeID": "string",
+      "time": "2019-05-24T13:31:44.199Z"
+  },
+  "msg": "string",
+  "ok": "string",
+  "status": 0
+}
 ```
 ### /searchByPlaceID
 根据采集地点ID查询接口
