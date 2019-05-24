@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @Service
 public class HBaseServiceImpl implements HBaseService {
-    private Logger log = LoggerFactory.getLogger(com.xdu.cloud.service.HBaseService.class);
+    private Logger log = LoggerFactory.getLogger(HBaseService.class);
 
     // The administrative API for HBase
     // Admin can be used to create, drop, list, enable and disable and
@@ -107,8 +107,8 @@ public class HBaseServiceImpl implements HBaseService {
     /**
      * 通过表名以及过滤条件查询数据
      */
-    private Map<String, Map<String, String>> queryData(String tableName,
-                                                       Scan scan) {
+    public Map<String, Map<String, String>> queryData(String tableName,
+                                                      Scan scan) {
         // <rowKey,对应的行数据>
         Map<String, Map<String, String>> result = new HashMap<>();
 
@@ -133,7 +133,7 @@ public class HBaseServiceImpl implements HBaseService {
                             Bytes.toString(cell.getQualifierArray(),
                                     cell.getQualifierOffset(),
                                     cell.getQualifierLength()),
-                            // 列族
+                            // 值
                             Bytes.toString(cell.getValueArray(),
                                     cell.getValueOffset(),
                                     cell.getValueLength()));

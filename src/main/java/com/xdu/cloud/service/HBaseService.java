@@ -1,6 +1,7 @@
 package com.xdu.cloud.service;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.client.Scan;
 
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,11 @@ public interface HBaseService {
      */
     List<String> getAllTableNames();
 
+    /**
+     * 条件查询
+     */
+    Map<String, Map<String, String>> queryData(String tableName,
+                                               Scan scan);
     /**
      * 遍历查询指定表中的所有数据
      * shell command: scan 'user'

@@ -7,7 +7,7 @@ public class Record {
     /**
      * 电子车牌
      */
-    private Long eid;
+    private String eid;
 
     /**
      * 记录时间
@@ -17,7 +17,7 @@ public class Record {
     /**
      * 地点ID
      */
-    private Integer placeID;
+    private String placeID;
 
     /**
      * 地点名称
@@ -27,19 +27,19 @@ public class Record {
     /**
      * 经度
      */
-    private Double longitude;
+    private String longitude;
 
     /**
      * 纬度
      */
-    private Double latitude;
+    private String latitude;
 
 
-    public Long getEid() {
+    public String getEid() {
         return eid;
     }
 
-    public void setEid(Long eid) {
+    public void setEid(String eid) {
         this.eid = eid;
     }
 
@@ -51,11 +51,11 @@ public class Record {
         this.time = time;
     }
 
-    public Integer getPlaceID() {
+    public String getPlaceID() {
         return placeID;
     }
 
-    public void setPlaceID(Integer placeID) {
+    public void setPlaceID(String placeID) {
         this.placeID = placeID;
     }
 
@@ -67,19 +67,19 @@ public class Record {
         this.address = address;
     }
 
-    public Double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public Double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 }
