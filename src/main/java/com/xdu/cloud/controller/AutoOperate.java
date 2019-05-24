@@ -2,6 +2,7 @@ package com.xdu.cloud.controller;
 
 import com.xdu.cloud.service.HBaseService;
 import com.xdu.cloud.service.Impl.HBaseServiceImpl;
+import com.xdu.cloud.service.MyHBaseService;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,9 +20,9 @@ public class AutoOperate {
     @Scheduled(cron = "*/30 * * * * ?")
     public void operate(){
         System.err.println("执行中。。。");
-        if (hBaseService!=null)
+        if (myhBaseService!=null)
             System.err.println("注入成功");
-        hBaseService.creatTable("test_base", Arrays.asList("f", "back"));
+        myhBaseService.creatTable("test_base", Arrays.asList("f", "back"));
     }
     @Value("${HBase.nodes}")
     private String nodes;
@@ -29,7 +30,7 @@ public class AutoOperate {
     private String maxsize;
 
     @Autowired
-    HBaseService hBaseService;
+    HBaseService myhBaseService;
 
    /* public void config(){
         org.apache.hadoop.conf.Configuration conf = HBaseConfiguration.create();

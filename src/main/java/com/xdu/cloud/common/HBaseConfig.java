@@ -2,6 +2,8 @@ package com.xdu.cloud.common;
 
 import com.xdu.cloud.service.HBaseService;
 import com.xdu.cloud.service.Impl.HBaseServiceImpl;
+import com.xdu.cloud.service.Impl.MyHBaseServiceImpl;
+import com.xdu.cloud.service.MyHBaseService;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +23,6 @@ public class HBaseConfig {
         conf.set("hbase.zookeeper.quorum",nodes );
         conf.set("hbase.client.keyvalue.maxsi；ze",maxsize);
         System.err.println("实例化。。。/。；");
-        return new HBaseServiceImpl(conf);
+        return new MyHBaseServiceImpl(conf);
     }
 }

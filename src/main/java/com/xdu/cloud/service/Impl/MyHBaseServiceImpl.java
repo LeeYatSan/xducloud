@@ -21,15 +21,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class MyHBaseServiceImpl implements MyHBaseService {
-    @Autowired
-    private HBaseService HBaseService;
 
+public class MyHBaseServiceImpl extends HBaseServiceImpl implements MyHBaseService {
     @Value("${HBase.nodes}")
     private String nodes;
     @Value("${HBase.maxsize}")
     private String maxsize;
+
+    public MyHBaseServiceImpl(Configuration conf) {
+        super(conf);
+    }
 
     public static Date stampToDate(String s){
         long lt = new Long(s);
@@ -55,7 +56,7 @@ public class MyHBaseServiceImpl implements MyHBaseService {
         RowFilter rf = new RowFilter(CompareFilter.CompareOp.EQUAL,
                 new SubstringComparator(EID));
         scan.setFilter(rf);
-        Map<String, Map<String, String>> resM = HBaseService.queryData("Record",scan);
+        Map<String, Map<String, String>> resM = queryData("record",scan);
         List<Record> resR = new ArrayList<Record>();
         resM.forEach((k,v)->{
             String[] tempRowKey = k.split("##");
@@ -84,7 +85,7 @@ public class MyHBaseServiceImpl implements MyHBaseService {
         RowFilter rf = new RowFilter(CompareFilter.CompareOp.EQUAL,
                 new BinaryPrefixComparator(Bytes.toBytes(PlaceId)));
         scan.setFilter(rf);
-        Map<String, Map<String, String>> resM = HBaseService.queryData("Record",scan);
+        Map<String, Map<String, String>> resM = queryData("Record",scan);
         List<Record> resR = new ArrayList<Record>();
         PlaceVO resV = new PlaceVO();
         resM.forEach((k,v)->{
@@ -124,7 +125,7 @@ public class MyHBaseServiceImpl implements MyHBaseService {
                 CompareFilter.CompareOp.EQUAL,Address.getBytes());
         scvf.setFilterIfMissing(true);
         scan.setFilter(scvf);
-        Map<String, Map<String, String>> resM = HBaseService.queryData("Record",scan);
+        Map<String, Map<String, String>> resM = queryData("Record",scan);
         List<Record> resR = new ArrayList<Record>();
         PlaceVO resV = new PlaceVO();
         resM.forEach((k,v)->{
