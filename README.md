@@ -8,14 +8,16 @@
 #### 接口方法
 GET  
 #### 接口说明
-根据传入的的电子车牌（eid）查询车辆信息（车牌、车主、出现时间、出现地点ID、出现地点名称、经纬度）  
+根据传入的的电子车牌（eid）查询车辆信息（出现时间、出现地点ID、出现地点名称、经纬度）  
 #### 参数说明
 参数 | 说明 |  备注  
 -|-|-
 eid | 电子车牌 | required |
 #### 返回结果
 ``` 
-待定
+Map<String,String> 
+key:"Time","PlaceID"，"Address","Longitude","Latitude"
+
 ```
 ### /searchByPlaceID
 根据采集地点ID查询接口
@@ -23,7 +25,7 @@ eid | 电子车牌 | required |
 GET  
 #### 接口说明
 待定
-根据传入的的地点ID（placeId）以及时间段（timeStart、timeEnd）查询车辆信息（车牌、车主、出现时间、出现地点ID、出现地点名称、经纬度）  
+根据传入的的地点ID（placeId）以及时间段（timeStart、timeEnd）查询车辆信息（EID、出现时间、出现地点ID、出现地点名称、经纬度）  
 #### 参数说明
 参数 | 说明 |  备注  
 -|-|-
