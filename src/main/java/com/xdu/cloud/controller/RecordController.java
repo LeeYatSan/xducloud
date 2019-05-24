@@ -23,12 +23,57 @@ public class RecordController extends BasicController{
     @ApiResponses({ @ApiResponse(code = 502, message = "Missing parameter"),
                     @ApiResponse(code = 200, message = "ok") })
     @GetMapping("/searchByEID")
-    public JSONResult getAllCardsByUserID(String eid){
+    public JSONResult getAllRecordsByUserID(String eid){
 
         if(eid == null || eid.equals("")){
             return JSONResult.errorMsg("Missing parameter");
         }
         return JSONResult.ok(myHBaseService.searchByEID(eid));
     }
-    
+
+
+    @ApiOperation(value = "根据采集地点ID或名字查询接口", notes = "根据采集地点ID或名字查询接口")
+    @ApiImplicitParams({@ApiImplicitParam(name = "idaddress", value = "idaddress", required = true, dataType = "String", paramType = "query"),
+                        @ApiImplicitParam(name = "startTime", value = "startTime", required = true, dataType = "String", paramType = "query"),
+                        @ApiImplicitParam(name = "endTime", value = "endTime", required = true, dataType = "String", paramType = "query"),
+                        @ApiImplicitParam(name = "method", value = "method", required = true, dataType = "boolean", paramType = "query")})
+    @ApiResponses({ @ApiResponse(code = 502, message = "Missing parameter"),
+            @ApiResponse(code = 200, message = "ok") })
+    @GetMapping("/searchByPlaceIDOrAddress")
+    public JSONResult getAllRecordsByPlaceIDOrAddress(String idaddress, String startTime, String endTime, boolean method){
+
+        if(idaddress == null || idaddress.equals("") || startTime == null
+                || startTime.equals("") || endTime == null || endTime.equals("")){
+            return JSONResult.errorMsg("Missing parameter");
+        }
+        if(method){
+            return JSONResult.ok(myHBaseService.searchByPlaceID(idaddress, startTime, endTime));
+        }
+        else {
+            return JSONResult.ok(myHBaseService.searchByAddress(idaddress, startTime, endTime));
+        }
+    }
+
+
+    @ApiOperation(value = "根据电子车牌eid获取相遇信息", notes = "根据电子车牌eid获取相遇信息")
+    @ApiImplicitParam(name = "eid", value = "eid", required = true, dataType = "String", paramType = "query")
+    @ApiResponses({ @ApiResponse(code = 502, message = "Missing parameter"),
+            @ApiResponse(code = 200, message = "ok") })
+    @GetMapping("/searchByEID")
+    public JSONResult getMeetRecordByEID(String eid){
+
+        if(eid == null || eid.equals("")){
+            return JSONResult.errorMsg("Missing parameter");
+        }
+        return JSONResult.ok(myHBaseService.searchMeetEvent(eid));
+    }
+
+
+    @ApiOperation(value = "获取非法数据信息", notes = "获取非法数据信息")
+    @ApiResponse(code = 200, message = "ok")
+    @GetMapping("/searchByEID")
+    public JSONResult getIllegalInfo(){
+
+        return JSONResult.ok(myHBaseService.searchIlligalInfo());
+    }
 }

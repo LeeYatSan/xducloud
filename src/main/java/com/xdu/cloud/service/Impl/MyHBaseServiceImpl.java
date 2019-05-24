@@ -70,7 +70,7 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
      *
      * @param PlaceId
      */
-    public PlaceVO serchByPlaceID(String PlaceId,String timeStart,String timeEnd) {
+    public PlaceVO searchByPlaceID(String PlaceId,String timeStart,String timeEnd) {
         Scan scan = new Scan();
         RowFilter rf = new RowFilter(CompareFilter.CompareOp.EQUAL,
                 new BinaryPrefixComparator(Bytes.toBytes(PlaceId)));
