@@ -30,12 +30,13 @@ public class PlaceVO {
     /**
      * 本时间段内本地车次
      */
-    private Integer carNum;
+    private String carNum;
 
     /**
      * 车辆信息
      */
     List<Record> records;
+
 
     public String getPlaceID() {
         return placeID;
@@ -69,11 +70,11 @@ public class PlaceVO {
         this.endTime = endTime;
     }
 
-    public Integer getCarNum() {
+    public String getCarNum() {
         return carNum;
     }
 
-    public void setCarNum(Integer carNum) {
+    public void setCarNum(String carNum) {
         this.carNum = carNum;
     }
 
@@ -85,3 +86,5 @@ public class PlaceVO {
         this.records = records;
     }
 }
+
+

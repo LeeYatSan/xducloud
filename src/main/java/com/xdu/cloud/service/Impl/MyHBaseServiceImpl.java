@@ -92,7 +92,7 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
             }
         });
         if (!resR.isEmpty()) {
-            resV.setCarNum(resR.size());
+            resV.setCarNum(String.valueOf(resR.size()));
             resV.setAddress(resR.get(0).getAddress());
             resV.setEndTime(stampToDate(timeEnd));
             resV.setStartTime(stampToDate(timeStart));
@@ -131,7 +131,7 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
             }
         });
         if (!resR.isEmpty()) {
-            resV.setCarNum(resR.size());
+            resV.setCarNum(String.valueOf(resR.size()));
             resV.setAddress(Address);
             resV.setEndTime(stampToDate(timeEnd));
             resV.setStartTime(stampToDate(timeStart));

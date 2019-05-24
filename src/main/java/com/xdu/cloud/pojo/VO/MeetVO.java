@@ -7,7 +7,7 @@ public class MeetVO {
     /**
      * 电子车牌
      */
-    private Long eid;
+    private String eid;
 
     /**
      * 开始时间
@@ -22,7 +22,7 @@ public class MeetVO {
     /**
      * 地点ID
      */
-    private Integer placeID;
+    private String placeID;
 
     /**
      * 地点名称
@@ -32,18 +32,19 @@ public class MeetVO {
     /**
      * 相遇电子车牌
      */
-    private Long meetEid;
+    private String meetEid;
 
     /**
      * 相遇次数
      */
-    private Integer times;
+    private String times;
 
-    public Long getEid() {
+
+    public String getEid() {
         return eid;
     }
 
-    public void setEid(Long eid) {
+    public void setEid(String eid) {
         this.eid = eid;
     }
 
@@ -63,11 +64,11 @@ public class MeetVO {
         this.endTime = endTime;
     }
 
-    public Integer getPlaceID() {
+    public String getPlaceID() {
         return placeID;
     }
 
-    public void setPlaceID(Integer placeID) {
+    public void setPlaceID(String placeID) {
         this.placeID = placeID;
     }
 
@@ -79,19 +80,19 @@ public class MeetVO {
         this.address = address;
     }
 
-    public Long getMeetEid() {
+    public String getMeetEid() {
         return meetEid;
     }
 
-    public void setMeetEid(Long meetEid) {
+    public void setMeetEid(String meetEid) {
         this.meetEid = meetEid;
     }
 
-    public Integer getTimes() {
+    public String getTimes() {
         return times;
     }
 
-    public void setTimes(Integer times) {
+    public void setTimes(String times) {
         this.times = times;
     }
 }
