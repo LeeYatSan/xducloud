@@ -29,35 +29,20 @@ eid | 电子车牌 | required |
   "status": 0
 }
 ```
-### /searchByPlaceID
+### /searchByPlaceIDOrAddress
 根据采集地点ID查询接口
 #### 接口方法
 GET  
 #### 接口说明
 待定
-根据传入的的地点ID（placeId）以及时间段（timeStart、timeEnd）查询车辆信息（EID、出现时间、出现地点ID、出现地点名称、经纬度）  
+根据传入的的地点ID（placeId）或地点名称（address）以及时间段（timeStart、timeEnd）查询车辆信息（EID、出现时间、出现地点ID、出现地点名称、经纬度）  
 #### 参数说明
 参数 | 说明 |  备注  
 -|-|-
-placeId | 地点ID | required |
+idaddress | 地点ID或名称 | required |
 timeStart | 开始时间 | required |
 timeEnd | 结束时间 | required |
-#### 返回结果
-``` 
-待定
-```
-### /searchByAddress
-根据采集地点名称查询接口
-#### 接口方法
-GET  
-#### 接口说明
-根据传入的的地点名称（address）以及时间段（timeStart、timeEnd）查询车辆信息（车牌、车主、出现时间、出现地点ID、出现地点名称、经纬度）  
-#### 参数说明
-参数 | 说明 |  备注  
--|-|-
-address | 地点名称 | required |
-timeStart | 开始时间 | required |
-timeEnd | 结束时间 | required |
+method | 方法选择 | required；boolean类型数据，true为按地点ID查询，false为按地点名称查询 |
 #### 返回结果
 ``` 
 待定
