@@ -19,8 +19,9 @@ public class AutoOperate {
     @Scheduled(cron = "*/30 * * * * ?")
     public void operate(){
         System.err.println("执行中。。。");
-        config();
-        //HBaseService.creatTable("test_base", Arrays.asList("f", "back"));
+        if (hBaseService!=null)
+            System.err.println("注入成功");
+        hBaseService.creatTable("test_base", Arrays.asList("f", "back"));
     }
     @Value("${HBase.nodes}")
     private String nodes;
@@ -28,9 +29,9 @@ public class AutoOperate {
     private String maxsize;
 
     @Autowired
-    HBaseService hbaseAPI;
+    HBaseService hBaseService;
 
-    public void config(){
+   /* public void config(){
         org.apache.hadoop.conf.Configuration conf = HBaseConfiguration.create();
         conf.set("hbase.zookeeper.quorum",nodes );
         conf.set("hbase.client.keyvalue.maxsize",maxsize);
@@ -65,6 +66,6 @@ public class AutoOperate {
 
 
     // 插入三条数据
-
+*/
 
 }

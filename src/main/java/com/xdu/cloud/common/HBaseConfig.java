@@ -19,7 +19,8 @@ public class HBaseConfig {
     public HBaseService getHbaseService(){
         org.apache.hadoop.conf.Configuration conf = HBaseConfiguration.create();
         conf.set("hbase.zookeeper.quorum",nodes );
-        conf.set("hbase.client.keyvalue.maxsize",maxsize);
-        return new HBaseServiceImpl();
+        conf.set("hbase.client.keyvalue.maxsi；ze",maxsize);
+        System.err.println("实例化。。。/。；");
+        return new HBaseServiceImpl(conf);
     }
 }

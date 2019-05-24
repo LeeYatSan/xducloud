@@ -16,12 +16,12 @@ public interface MyHBaseService {
     /**
      * 根据探测地点ID查询车辆信息
      */
-    public PlaceVO serchByPlaceID(String PlaceId);
+    public PlaceVO serchByPlaceID(String PlaceId,String timeStart,String timeEnd);
 
     /**
      * 根据探测地点名称查询车辆信息
      */
-    public PlaceVO searchByAddress(String Address);
+    public PlaceVO searchByAddress(String Address,String timeStart,String timeEnd);
 
     /**
      * 根据车辆ID查询相遇信息

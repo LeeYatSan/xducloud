@@ -9,9 +9,9 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
-import org.apache.hadoop.hbase.filter.CompareFilter;
-import org.apache.hadoop.hbase.filter.RowFilter;
-import org.apache.hadoop.hbase.filter.SubstringComparator;
+import org.apache.hadoop.hbase.filter.*;
+import org.apache.hadoop.hbase.util.Bytes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +23,7 @@ import java.util.Map;
 
 @Service
 public class MyHBaseServiceImpl implements MyHBaseService {
+    @Autowired
     private HBaseService HBaseService;
 
     @Value("${HBase.nodes}")
@@ -36,13 +37,13 @@ public class MyHBaseServiceImpl implements MyHBaseService {
         return date;
     }
 
-    public MyHBaseServiceImpl(){
+    /*public MyHBaseServiceImpl(){
         Configuration conf = HBaseConfiguration.create();
         conf.set("hbase.zookeeper.quorum",nodes );
         conf.set("hbase.client.keyvalue.maxsize",maxsize);
         HBaseService = new HBaseServiceImpl();
         HBaseService.getConnection(conf);
-    }
+    }*/
     /**
      * 根据EID查询车辆信息
      *
@@ -78,8 +79,37 @@ public class MyHBaseServiceImpl implements MyHBaseService {
      * @param PlaceId
      */
     @Override
-    public PlaceVO serchByPlaceID(String PlaceId) {
-        return null;
+    public PlaceVO serchByPlaceID(String PlaceId,String timeStart,String timeEnd) {
+        Scan scan = new Scan();
+        RowFilter rf = new RowFilter(CompareFilter.CompareOp.EQUAL,
+                new BinaryPrefixComparator(Bytes.toBytes(PlaceId)));
+        scan.setFilter(rf);
+        Map<String, Map<String, String>> resM = HBaseService.queryData("Record",scan);
+        List<Record> resR = new ArrayList<Record>();
+        PlaceVO resV = new PlaceVO();
+        resM.forEach((k,v)->{
+            String[] tempRowKey = k.split("##");
+            Record record = new Record();
+            record.setEid(tempRowKey[2]);
+            record.setPlaceID(tempRowKey[0]);
+            record.setTime(stampToDate(tempRowKey[1]));
+            record.setAddress(v.get("address"));
+            record.setLatitude(v.get("latitude"));
+            record.setLongitude(v.get("longitude"));
+            if (Integer.valueOf(timeStart)<=Integer.valueOf(tempRowKey[1]) && Integer.valueOf(timeEnd)>=Integer.valueOf(tempRowKey[1])){
+                resR.add(record);
+            }
+        });
+        if (!resR.isEmpty()) {
+            resV.setCarNum(resR.size());
+            resV.setAddress(resR.get(0).getAddress());
+            resV.setEndTime(stampToDate(timeEnd));
+            resV.setStartTime(stampToDate(timeStart));
+            resV.setPlaceID(PlaceId);
+            resV.setRecords(resR);
+        }
+
+        return resV;
     }
 
     /**
@@ -88,8 +118,38 @@ public class MyHBaseServiceImpl implements MyHBaseService {
      * @param Address
      */
     @Override
-    public PlaceVO searchByAddress(String Address) {
-        return null;
+    public PlaceVO searchByAddress(String Address,String timeStart,String timeEnd) {
+        Scan scan = new Scan();
+        SingleColumnValueFilter scvf= new SingleColumnValueFilter(Bytes.toBytes("info"), Bytes.toBytes("address"),
+                CompareFilter.CompareOp.EQUAL,Address.getBytes());
+        scvf.setFilterIfMissing(true);
+        scan.setFilter(scvf);
+        Map<String, Map<String, String>> resM = HBaseService.queryData("Record",scan);
+        List<Record> resR = new ArrayList<Record>();
+        PlaceVO resV = new PlaceVO();
+        resM.forEach((k,v)->{
+            String[] tempRowKey = k.split("##");
+            Record record = new Record();
+            record.setEid(tempRowKey[2]);
+            record.setPlaceID(tempRowKey[0]);
+            record.setTime(stampToDate(tempRowKey[1]));
+            record.setAddress(v.get("address"));
+            record.setLatitude(v.get("latitude"));
+            record.setLongitude(v.get("longitude"));
+            if (Integer.valueOf(timeStart)<=Integer.valueOf(tempRowKey[1]) && Integer.valueOf(timeEnd)>=Integer.valueOf(tempRowKey[1])){
+                resR.add(record);
+            }
+        });
+        if (!resR.isEmpty()) {
+            resV.setCarNum(resR.size());
+            resV.setAddress(Address);
+            resV.setEndTime(stampToDate(timeEnd));
+            resV.setStartTime(stampToDate(timeStart));
+            resV.setPlaceID(resR.get(0).getPlaceID());
+            resV.setRecords(resR);
+        }
+
+        return resV;
     }
 
     /**

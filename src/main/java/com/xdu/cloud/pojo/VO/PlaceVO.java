@@ -10,7 +10,7 @@ public class PlaceVO {
     /**
      * 地点ID
      */
-    private Integer placeID;
+    private String placeID;
 
     /**
      * 地点名称
@@ -37,11 +37,11 @@ public class PlaceVO {
      */
     List<Record> records;
 
-    public Integer getPlaceID() {
+    public String getPlaceID() {
         return placeID;
     }
 
-    public void setPlaceID(Integer placeID) {
+    public void setPlaceID(String placeID) {
         this.placeID = placeID;
     }
 

@@ -14,7 +14,7 @@ public interface HBaseService {
     /**
      * 连接
      */
-    void getConnection(Configuration conf);
+    //void getConnection(Configuration conf);
 
     /**
      * 创建表

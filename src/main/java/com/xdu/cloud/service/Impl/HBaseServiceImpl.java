@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * HBase数据库基本操作
  */
-@Service
+//@Service
 public class HBaseServiceImpl implements HBaseService {
     private Logger log = LoggerFactory.getLogger(HBaseService.class);
 
@@ -31,10 +31,7 @@ public class HBaseServiceImpl implements HBaseService {
     private Admin admin = null;
     private Connection connection = null;
 
-    /**
-     * 连接
-     */
-    public void getConnection(Configuration conf) {
+    public HBaseServiceImpl(Configuration conf){
         try {
             connection = ConnectionFactory.createConnection(conf);
             admin = connection.getAdmin();
@@ -42,6 +39,17 @@ public class HBaseServiceImpl implements HBaseService {
             log.error("获取HBase连接失败");
         }
     }
+    /**
+     * 连接
+     */
+/*    public void getConnection(Configuration conf) {
+        try {
+            connection = ConnectionFactory.createConnection(conf);
+            admin = connection.getAdmin();
+        } catch (IOException e) {
+            log.error("获取HBase连接失败");
+        }
+    }*/
 
     /**
      * 创建表
