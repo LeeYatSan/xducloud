@@ -1,14 +1,12 @@
 package com.xdu.cloud.controller;
 
 import com.xdu.cloud.common.JSONResult;
-import com.xdu.cloud.service.MyHBaseService;
+import com.xdu.cloud.service.Impl.MyHBaseServiceImpl;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 
 @RestController(value = "RecordController")
@@ -18,7 +16,7 @@ public class RecordController extends BasicController{
 
 
     @Autowired
-    MyHBaseService myHBaseService;
+    MyHBaseServiceImpl myHBaseService;
 
     @ApiOperation(value = "根据电子车牌eid获取信息", notes = "根据电子车牌eid获取信息")
     @ApiImplicitParam(name = "eid", value = "eid", required = true, dataType = "String", paramType = "query")

@@ -3,26 +3,18 @@ package com.xdu.cloud.service.Impl;
 import com.xdu.cloud.pojo.Record;
 import com.xdu.cloud.pojo.VO.MeetVO;
 import com.xdu.cloud.pojo.VO.PlaceVO;
-import com.xdu.cloud.service.HBaseService;
-import com.xdu.cloud.service.MyHBaseService;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
-public class MyHBaseServiceImpl extends HBaseServiceImpl implements MyHBaseService {
+public class MyHBaseServiceImpl extends HBaseServiceImpl{
     @Value("${HBase.nodes}")
     private String nodes;
     @Value("${HBase.maxsize}")
@@ -50,7 +42,6 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl implements MyHBaseServi
      *
      * @param EID
      */
-    @Override
     public List<Record> searchByEID(String EID) {
         Scan scan = new Scan();
         RowFilter rf = new RowFilter(CompareFilter.CompareOp.EQUAL,
@@ -79,7 +70,6 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl implements MyHBaseServi
      *
      * @param PlaceId
      */
-    @Override
     public PlaceVO serchByPlaceID(String PlaceId,String timeStart,String timeEnd) {
         Scan scan = new Scan();
         RowFilter rf = new RowFilter(CompareFilter.CompareOp.EQUAL,
@@ -118,7 +108,6 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl implements MyHBaseServi
      *
      * @param Address
      */
-    @Override
     public PlaceVO searchByAddress(String Address,String timeStart,String timeEnd) {
         Scan scan = new Scan();
         SingleColumnValueFilter scvf= new SingleColumnValueFilter(Bytes.toBytes("info"), Bytes.toBytes("address"),
@@ -158,7 +147,6 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl implements MyHBaseServi
      *
      * @param EID
      */
-    @Override
     public MeetVO searchMeetEvent(String EID) {
         return null;
     }
@@ -166,7 +154,6 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl implements MyHBaseServi
     /**
      * 查询非法数据
      */
-    @Override
     public List<Record> searchIlligalInfo() {
         return null;
     }
@@ -178,7 +165,6 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl implements MyHBaseServi
      * @param timeStart
      * @param timeEnd
      */
-    @Override
     public List<Record> searchTrace(String EID, String timeStart, String timeEnd) {
         return null;
     }
