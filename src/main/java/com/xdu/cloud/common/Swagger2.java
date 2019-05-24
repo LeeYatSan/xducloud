@@ -31,7 +31,7 @@ public class Swagger2 {
         ParameterBuilder userIdHeader = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<Parameter>();
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
-				.apis(RequestHandlerSelectors.basePackage("com.miniAPP.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.xdu.cloud"))
 				.paths(PathSelectors.any()).build()
 				.globalOperationParameters(pars);
 	}
@@ -42,11 +42,11 @@ public class Swagger2 {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				// 设置页面标题
-				.title("橘喵记忆 | Felis-Recall")
+				.title("XDU Cloud")
 				// 设置联系人
 				.contact(new Contact("LEE YAT-SAN", "https://leeyatsan.github.io/", "leeyatsan@163.com"))
 				// 描述
-				.description("欢迎访问橘喵记忆（Felis-Recall）接口文档，这里是描述信息")
+				.description("XDU Cloud 接口文档，这里是描述信息")
 				// 定义版本号
 				.version("1.0").build();
 	}
