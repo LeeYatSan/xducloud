@@ -75,7 +75,7 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
         RowFilter rf = new RowFilter(CompareFilter.CompareOp.EQUAL,
                 new BinaryPrefixComparator(Bytes.toBytes(PlaceId)));
         scan.setFilter(rf);
-        Map<String, Map<String, String>> resM = queryData("Record",scan);
+        Map<String, Map<String, String>> resM = queryData("record",scan);
         List<Record> resR = new ArrayList<Record>();
         PlaceVO resV = new PlaceVO();
         resM.forEach((k,v)->{
@@ -114,7 +114,7 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
                 CompareFilter.CompareOp.EQUAL,Address.getBytes());
         scvf.setFilterIfMissing(true);
         scan.setFilter(scvf);
-        Map<String, Map<String, String>> resM = queryData("Record",scan);
+        Map<String, Map<String, String>> resM = queryData("record",scan);
         List<Record> resR = new ArrayList<Record>();
         PlaceVO resV = new PlaceVO();
         resM.forEach((k,v)->{
