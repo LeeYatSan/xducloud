@@ -251,7 +251,7 @@ public class HBaseServiceImpl implements HBaseService {
      * Used to communicate with a single HBase table.
      * Table can be used to get, put, delete or scan data from a table.
      */
-    private Table getTable(String tableName) throws IOException {
+    protected Table getTable(String tableName) throws IOException {
         return connection.getTable(TableName.valueOf(tableName));
     }
 

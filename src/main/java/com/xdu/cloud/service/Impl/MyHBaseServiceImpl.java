@@ -4,11 +4,13 @@ import com.xdu.cloud.pojo.Record;
 import com.xdu.cloud.pojo.VO.MeetVO;
 import com.xdu.cloud.pojo.VO.PlaceVO;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.Cell;
+import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -151,8 +153,34 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
      *
      * @param EID
      */
-    public MeetVO searchMeetEvent(String EID) {
-        return null;
+    public List<MeetVO> searchMeetEvent(String EID) {
+        Get get = new Get(Bytes.toBytes(EID));
+        // 获取表
+        Table table = null;
+        List<MeetVO> resM = new ArrayList<>();
+        try {
+            table = getTable("MeetCount");
+            Result hTableResult = table.get(get);
+            if (hTableResult != null && !hTableResult.isEmpty()) {
+                for (Cell cell : hTableResult.listCells()) {
+                    MeetVO tmeetv0 = new MeetVO();
+                    tmeetv0.setEid(EID);
+                    tmeetv0.setMeetEid(Bytes.toString(cell.getQualifierArray(),
+                            cell.getQualifierOffset(),
+                            cell.getQualifierLength()));
+                    tmeetv0.setTimes(Bytes.toString(cell.getValueArray(),
+                            cell.getValueOffset(),
+                            cell.getValueLength()));
+                    resM.add(tmeetv0);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        return resM;
     }
 
     /**
