@@ -73,7 +73,7 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
     public PlaceVO searchByPlaceID(String PlaceId,String timeStart,String timeEnd) {
         Scan scan = new Scan();
         RowFilter rf = new RowFilter(CompareFilter.CompareOp.EQUAL,
-                new BinaryPrefixComparator(Bytes.toBytes(PlaceId)));
+                new BinaryPrefixComparator(Bytes.toBytes(PlaceId+"##")));
         scan.setFilter(rf);
         Map<String, Map<String, String>> resM = queryData("record",scan);
         List<Record> resR = new ArrayList<Record>();
