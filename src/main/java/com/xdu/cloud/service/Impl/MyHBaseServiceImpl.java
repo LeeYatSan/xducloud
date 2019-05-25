@@ -30,7 +30,7 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
 
         SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Long time= new Long(s);
-        String d = format.format(time);
+        String d = format.format(time*1000);
         Date date= null;
         try {
             date = format.parse(d);
@@ -40,13 +40,7 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
         return date;
     }
 
-    /*public MyHBaseServiceImpl(){
-        Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum",nodes );
-        conf.set("hbase.client.keyvalue.maxsize",maxsize);
-        HBaseService = new HBaseServiceImpl();
-        HBaseService.getConnection(conf);
-    }*/
+
     /**
      * 根据EID查询车辆信息
      *
