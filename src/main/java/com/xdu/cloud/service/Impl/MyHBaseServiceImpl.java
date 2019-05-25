@@ -9,6 +9,8 @@ import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,8 +27,16 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
     }
 
     public static Date stampToDate(String s){
-        long lt = new Long(s);
-        Date date = new Date(lt);
+
+        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long time= new Long(s);
+        String d = format.format(time);
+        Date date= null;
+        try {
+            date = format.parse(d);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return date;
     }
 
