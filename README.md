@@ -73,11 +73,7 @@ eid | 电子车牌 | required |
 ``` 
 {
   "data": {
-      "address": "string",
       "eid": "string",
-      "placeID": "string",
-      "startTime": "2019-05-24T13:31:44.199Z",
-      "endTime": "2019-05-24T13:32:44.199Z",
       "meetEid": "string",
       "times": "string",
   },
