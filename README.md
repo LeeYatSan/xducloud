@@ -45,7 +45,19 @@ timeEnd | 结束时间 | required |
 method | 方法选择 | required；boolean类型数据，true为按地点ID查询，false为按地点名称查询 |
 #### 返回结果
 ``` 
-待定
+{
+  "data": {
+      "placeID": "string",
+      "address": "string",
+      "eid": "string",
+      "startTime": "2019-05-24T13:31:44.199Z",
+      "endTime": "2019-05-24T13:32:44.199Z",
+      "carNum": "string",
+  },
+  "msg": "string",
+  "ok": "string",
+  "status": 0
+}
 ```
 ### /searchMeet
 查询车辆相遇情况接口
@@ -59,7 +71,20 @@ GET
 eid | 电子车牌 | required |
 #### 返回结果
 ``` 
-待定
+{
+  "data": {
+      "address": "string",
+      "eid": "string",
+      "placeID": "string",
+      "startTime": "2019-05-24T13:31:44.199Z",
+      "endTime": "2019-05-24T13:32:44.199Z",
+      "meetEid": "string",
+      "times": "string",
+  },
+  "msg": "string",
+  "ok": "string",
+  "status": 0
+}
 ```
 
 ### /searchIllegalInfo
@@ -72,7 +97,19 @@ GET
 无参数
 #### 返回结果
 ``` 
-待定
+{
+  "data": {
+      "address": "string",
+      "eid": "string",
+      "latitude": "string",
+      "longitude": "string",
+      "placeID": "string",
+      "time": "2019-05-24T13:31:44.199Z"
+  },
+  "msg": "string",
+  "ok": "string",
+  "status": 0
+}
 ```
 
 ## 警报模块：
