@@ -5,13 +5,11 @@ import com.xdu.cloud.service.Impl.MyHBaseServiceImpl;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController(value = "RecordController")
 @Api(value = "记录模块API", tags = {"Record Controller"})
-@RequestMapping("/record")
 public class RecordController extends BasicController{
 
 
@@ -59,7 +57,7 @@ public class RecordController extends BasicController{
     @ApiImplicitParam(name = "eid", value = "eid", required = true, dataType = "String", paramType = "query")
     @ApiResponses({ @ApiResponse(code = 502, message = "Missing parameter"),
             @ApiResponse(code = 200, message = "ok") })
-    @GetMapping("/searchByEID")
+    @GetMapping("/searchMeet")
     public JSONResult getMeetRecordByEID(String eid){
 
         if(eid == null || eid.equals("")){
@@ -71,7 +69,7 @@ public class RecordController extends BasicController{
 
     @ApiOperation(value = "获取非法数据信息", notes = "获取非法数据信息")
     @ApiResponse(code = 200, message = "ok")
-    @GetMapping("/searchByEID")
+    @GetMapping("/searchIllegalInfo")
     public JSONResult getIllegalInfo(){
 
         return JSONResult.ok(myHBaseService.searchIlligalInfo());

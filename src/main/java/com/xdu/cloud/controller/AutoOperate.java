@@ -13,7 +13,7 @@ import java.util.Arrays;
 @EnableScheduling
 public class AutoOperate {
 
-    @Scheduled(cron = "*/30 * * * * ?")
+//    @Scheduled(cron = "*/30 * * * * ?")
     public void operate(){
         System.err.println("执行中。。。");
         if (myHBaseService!=null)
