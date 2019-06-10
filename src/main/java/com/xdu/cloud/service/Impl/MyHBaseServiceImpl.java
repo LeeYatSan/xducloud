@@ -69,8 +69,32 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
 
         return resR;
     }
-
-
+    /**
+     * 根据规则监控,空参数使用空串
+     *
+     */
+    public List<Record> searchByRule(String EID,String PlaceID) {
+        List<Record> Res = new ArrayList<Record>();
+        if(!EID.isEmpty()){
+            List<Record> tres=searchByEID(EID);
+            tres.forEach((k)->{
+                if (k.getTime().after(new Date())){
+                    if (PlaceID.isEmpty() || PlaceID.equals(k.getPlaceID()))
+                        Res.add(k);
+                }
+            });
+            return Res;
+        }else if (!PlaceID.isEmpty()){
+            PlaceVO tres=searchByPlaceID(EID,String.valueOf(new Date().getTime()-10),String.valueOf(new Date().getTime()+10));
+            tres.getRecords().forEach((k)->{
+                if (EID.isEmpty() || k.getEid().equals(EID))
+                    Res.add(k);
+            });
+        }else{
+            return Res;
+        }
+        return Res;
+    }
     /**
      * 根据探测地点ID查询车辆信息
      *
