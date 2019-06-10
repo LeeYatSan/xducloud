@@ -95,6 +95,8 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
         }
         return Res;
     }
+
+    
     /**
      * 根据探测地点ID查询车辆信息
      *
