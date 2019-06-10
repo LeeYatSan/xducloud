@@ -4,6 +4,7 @@ import com.xdu.cloud.common.JSONResult;
 import com.xdu.cloud.service.Impl.MyHBaseServiceImpl;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,8 +22,9 @@ public class RecordController extends BasicController{
     @ApiResponses({ @ApiResponse(code = 502, message = "Missing parameter"),
                     @ApiResponse(code = 200, message = "ok") })
     @GetMapping("/searchByEID")
+    @CrossOrigin
     public JSONResult getAllRecordsByUserID(String eid){
-
+        System.err.println("searchByEID 请求接入：" + System.currentTimeMillis());
         if(eid == null || eid.equals("")){
             return JSONResult.errorMsg("Missing parameter");
         }
@@ -38,12 +40,18 @@ public class RecordController extends BasicController{
     @ApiResponses({ @ApiResponse(code = 502, message = "Missing parameter"),
             @ApiResponse(code = 200, message = "ok") })
     @GetMapping("/searchByPlaceIDOrAddress")
+    @CrossOrigin
     public JSONResult getAllRecordsByPlaceIDOrAddress(String idaddress, String startTime, String endTime, boolean method){
 
+        System.err.println("searchByPlaceIDOrAddress 请求接入：" + System.currentTimeMillis());
         if(idaddress == null || idaddress.equals("") || startTime == null
                 || startTime.equals("") || endTime == null || endTime.equals("")){
             return JSONResult.errorMsg("Missing parameter");
         }
+        System.err.println("idaddress : " + idaddress);
+        System.err.println("startTime : " + startTime);
+        System.err.println("endTime : " + endTime);
+        System.err.println("method : " + method);
         if(method){
             return JSONResult.ok(myHBaseService.searchByPlaceID(idaddress, startTime, endTime));
         }
@@ -58,8 +66,10 @@ public class RecordController extends BasicController{
     @ApiResponses({ @ApiResponse(code = 502, message = "Missing parameter"),
             @ApiResponse(code = 200, message = "ok") })
     @GetMapping("/searchMeet")
+    @CrossOrigin
     public JSONResult getMeetRecordByEID(String eid){
 
+        System.err.println("searchMeet 请求接入：" + System.currentTimeMillis());
         if(eid == null || eid.equals("")){
             return JSONResult.errorMsg("Missing parameter");
         }
@@ -70,8 +80,10 @@ public class RecordController extends BasicController{
     @ApiOperation(value = "获取非法数据信息", notes = "获取非法数据信息")
     @ApiResponse(code = 200, message = "ok")
     @GetMapping("/searchIllegalInfo")
+    @CrossOrigin
     public JSONResult getIllegalInfo(){
 
+        System.err.println("searchIllegalInfo 请求接入：" + System.currentTimeMillis());
         return JSONResult.ok(myHBaseService.searchIlligalInfo());
     }
 }
