@@ -71,6 +71,48 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
         return resR;
     }
     /**
+     * 查询地点经过车辆,按照行键查询
+     */
+    public VehicleCountVO searchForCountByPlaceID(String PlaceID) {
+        Scan scan = new Scan();
+        RowFilter rf = new RowFilter(CompareFilter.CompareOp.EQUAL,
+                new SubstringComparator(PlaceID));
+        scan.setFilter(rf);
+        Map<String, Map<String, String>> resM = queryData("VehicleCount",scan);
+        //List<VehicleCountVO> resR = new ArrayList<VehicleCountVO>();
+        VehicleCountVO record = new VehicleCountVO();
+        resM.forEach((k,v)->{
+            String tempRowKey = k;
+
+            record.setPlaceID(tempRowKey);
+            record.setAddress(v.get("address"));
+            record.setLatitude(v.get("latitude"));
+            record.setLongitude(v.get("longitude"));
+        });
+
+        return record;
+    }
+    /**
+     * 查询地点经过车辆,全表查询
+     */
+    public List<VehicleCountVO> searchForCount() {
+        Map<String, Map<String, String>> resM = getResultScanner("VehicleCount");
+        List<VehicleCountVO> resR = new ArrayList<VehicleCountVO>();
+
+        resM.forEach((k,v)->{
+            VehicleCountVO record = new VehicleCountVO();
+            String tempRowKey = k;
+
+            record.setPlaceID(tempRowKey);
+            record.setAddress(v.get("address"));
+            record.setLatitude(v.get("latitude"));
+            record.setLongitude(v.get("longitude"));
+            resR.add(record);
+        });
+
+        return resR;
+    }
+    /**
      * 根据规则监控,空参数使用空串
      *
      */
