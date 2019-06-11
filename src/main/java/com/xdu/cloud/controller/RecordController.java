@@ -86,4 +86,18 @@ public class RecordController extends BasicController{
         System.err.println("searchIllegalInfo 请求接入：" + System.currentTimeMillis());
         return JSONResult.ok(myHBaseService.searchIlligalInfo());
     }
+
+
+    @ApiOperation(value = "根据placeID获取车辆统计信息", notes = "根据placeID获取车辆统计信息")
+    @ApiResponse(code = 200, message = "ok")
+    @GetMapping("/searchVehicleCount")
+    @CrossOrigin
+    public JSONResult getVehicleCount(String placeID){
+
+        System.err.println("searchVehicleCount 请求接入：" + System.currentTimeMillis());
+        if(placeID == null){
+            return JSONResult.errorMsg("Missing parameter");
+        }
+        return JSONResult.ok(myHBaseService.searchVehicleCount(placeID));
+    }
 }

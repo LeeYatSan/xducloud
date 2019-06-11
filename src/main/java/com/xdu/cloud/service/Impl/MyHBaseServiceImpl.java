@@ -3,6 +3,7 @@ package com.xdu.cloud.service.Impl;
 import com.xdu.cloud.pojo.Record;
 import com.xdu.cloud.pojo.VO.MeetVO;
 import com.xdu.cloud.pojo.VO.PlaceVO;
+import com.xdu.cloud.pojo.VO.VehicleCountVO;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.client.*;
@@ -205,10 +206,44 @@ public class MyHBaseServiceImpl extends HBaseServiceImpl{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
         return resM;
+    }
+
+    /**
+     * 根据地点ID查询相遇信息
+     *
+     * @param
+     */
+    public List<VehicleCountVO> searchVehicleCount(String placeID) {
+        Scan scan = new Scan();
+        RowFilter rf = new RowFilter(CompareFilter.CompareOp.EQUAL,
+                new BinaryPrefixComparator(Bytes.toBytes(placeID+"##")));
+        scan.setFilter(rf);
+        Map<String, Map<String, String>> resM = queryData("VehicleCount",scan);
+        List<VehicleCountVO> resR = new ArrayList<VehicleCountVO>();
+//        VehicleCountVO res = new VehicleCountVO();
+//        resM.forEach((k,v)->{
+//            String[] tempRowKey = k.split("##");
+//            Record record = new Record();
+//            record.setEid(tempRowKey[2]);
+//            record.setPlaceID(tempRowKey[0]);
+//            record.setTime(stampToDate(tempRowKey[1]));
+//            record.setAddress(v.get("address"));
+//            record.setLatitude(v.get("latitude"));
+//            record.setLongitude(v.get("longitude"));
+//            if (Integer.valueOf(timeStart)<=Integer.valueOf(tempRowKey[1]) && Integer.valueOf(timeEnd)>=Integer.valueOf(tempRowKey[1])){
+//                resR.add(record);
+//            }
+//        });
+//        if (!resR.isEmpty()) {
+//            res.setCarNum(String.valueOf(resR.size()));
+//            res.setAddress(resR.get(0).getAddress());
+//            res.setEndTime(stampToDate(timeEnd));
+//            res.setStartTime(stampToDate(timeStart));
+//            res.setPlaceID(PlaceId);
+//            res.setRecords(resR);
+//        }
+        return resR;
     }
 
     /**
